@@ -56,6 +56,31 @@
 <script src="../node_modules/parse-query/parse_query.js"></script>
 <script src="./index.js"></script>
 <script type="text/javascript">
+    var translations = {
+        title: 'Connexion',
+        idPrefix: 'campsi-login',
+
+        signinId: 'signin',
+        signinSubmitText: 'Connexion',
+        signinLink: 'Je me souviens !',
+        signinTitle: 'J\'ai déjà un compte',
+
+        signupId: 'signup',
+        signupSubmitText: 'Inscription',
+        signupLink: 'Je veux m\'inscrire',
+        signupTitle: 'Je veux m\'inscrire',
+
+        resetPasswordId: 'reset-password',
+        resetPasswordSubmitText: 'Réinitialiser mon mot de passe',
+        resetPasswordLink: 'Mot de passe oublié ?',
+        resetPasswordTitle: 'Mot de passe oublié',
+
+        displayNamePH: 'Nom affiché',
+        emailPH: 'Adresse email',
+        usernamePH: 'Nom d\'utilisateur',
+        passwordPH: 'Mot de passe',
+        passwordVerifyPH: 'Vérification du mot de passe'
+    };
     var parameters = parseQuery();
     var $login = $('#login');
     $login.CampsiLogin({
@@ -64,31 +89,7 @@
         token: parameters.token,
         logo: "https://campsi.imgix.net/56261291c0e9425a0b9404d8-H14vqrpMl.png?fit=max&h=150",
         logoStyle: {},
-        translations: {
-            title: 'Connexion',
-            idPrefix: 'campsi-login',
-
-            signinId: 'signin',
-            signinSubmitText: 'Connexion',
-            signinLink: 'Je me souviens !',
-            signinTitle: 'J\'ai déjà un compte',
-
-            signupId: 'signup',
-            signupSubmitText: 'Inscription',
-            signupLink: 'Je veux m\'inscrire',
-            signupTitle: 'Je veux m\'inscrire',
-
-            resetPasswordId: 'reset-password',
-            resetPasswordSubmitText: 'Réinitialiser mon mot de passe',
-            resetPasswordLink: 'Mot de passe oublié ?',
-            resetPasswordTitle: 'Mot de passe oublié',
-
-            displayNamePH: 'Nom affiché',
-            emailPH: 'Adresse email',
-            usernamePH: 'Nom d\'utilisateur',
-            passwordPH: 'Mot de passe',
-            passwordVerifyPH: 'Vérification du mot de passe'
-        }
+//        translations: translations
     }).on('login', function (event, user) {
         console.info('user logged in', user);
     });

@@ -10,6 +10,14 @@ Client-side widget that implements [**campsi**/api](https://github.com/campsi/ap
   - [x] Minimal `$.fn` footprint
 - [ ] Responsive
 
+## Demo themes
+### `Modal.Transparent.Sunset`
+![](docs/images/modal.transparent.sunset.jpg?raw=true)
+### `Modal.Flat.Carmin`
+![](docs/images/modal.flat.carmin.jpg?raw=true)
+### `Modal.Transparent.Neonblue`
+![](docs/images/modal.transparent.neonblue.jpg?raw=true)
+
 ## Installation
 #### Pre-requisites
 **campsi**/login is a *jQuery plugin*, and therefore requires an instance of **jQuery**. You can either use an official jQuery CDN or download your own custom version, but **do not use the `slim` version**. This version strips out `$.ajax()`, which is required to call the authentification endpoint of the api. 
