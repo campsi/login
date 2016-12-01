@@ -1,0 +1,33 @@
+bigButtons($padding)
+  .campsi-login
+    .buttons
+      padding 0 $padding $padding
+      a
+        text-align center
+        display inline-block
+        padding $padding
+        text-decoration none
+        margin 5px //todo var
+        transition .2s ease-out all
+        &:first-child
+          margin-top 0
+        &:focus, &:hover
+          outline none
+
+    .auth
+      &:before
+        display block
+        height 60px
+        width 60px
+        background-size contain
+        content: ''
+        margin-bottom 10px
+
+      &.facebook:before
+        background-image url(_assets/provider-icons-round/Facebook.png)
+      &.google:before
+        background-image url(_assets/provider-icons-round/Google%20Plus.png)
+      &.github:before
+        background-image url(_assets/provider-icons-round/Github.png)
+      &.twitter:before
+        background-image url(_assets/provider-icons-round/Twitter.png)

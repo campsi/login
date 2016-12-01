@@ -1,0 +1,133 @@
+@import "reset"
+
+modal($overlay, $background, $textColor)
+  .campsi-login-wrapper
+    text-align center
+    background $overlay
+    width 100%
+    height 100%
+    position absolute
+    top 0
+    left 0
+
+  .campsi-login
+    background $background
+    display inline-block
+    margin-top: 50vh
+    transform: translateY(-50%)
+    width 420px
+    color $textColor
+
+    .logo
+      padding 20px
+      img
+        max-height 100px
+
+    a
+      color $textColor
+      text-decoration: none
+
+    .close
+      //background red
+      position absolute
+      width 30px
+      height 30px
+      display block
+      cursor pointer
+      top 20px
+      right 15px
+      transition transform .2s ease-out
+      &:before, &:after
+        content ''
+        position absolute
+        width 100%
+        top 50%
+        left 0
+        height 2px
+        background $textColor
+        transform rotate(45deg)
+      &:after
+        transform rotate(-45deg)
+      &:hover
+        transform rotate(90deg) scale(1.05)
+
+    .submit
+      padding 10px
+
+    h1
+      //text-align left
+      font-size 1.6em
+      padding 20px
+
+    h2
+      font-size 1.2em
+      padding 10px
+
+    input
+      width 100%
+      text-align center
+      font-size 1.1em
+      padding .5em
+      border 1px solid #EEE
+      border-right none
+      border-left none
+      margin-top -2px
+      &:focus, &:hover
+        outline none
+      &:first-of-type
+        margin-top 0
+
+    .links
+      left 0
+      a
+        display inline-block
+        padding .5em
+        font-size .9em
+
+  .close-outside .close
+    right -35px
+    top -35px
+
+  .campsi-login-wrapper.visible
+    animation fadeIn .5s ease-out both
+    .campsi-login
+      animation fadeIn .5s ease-out both, scaleIn .3s ease-out both
+      animation-delay .3s
+
+  .campsi-login-wrapper.closed
+    animation fadeOut .5s ease-out both
+    animation-delay .2s
+    .campsi-login
+      animation fadeOut .4s ease-out both
+
+  @keyframes fadeIn
+    0%
+      visibility hidden
+      opacity 0
+    1%
+      visibility visible
+      opacity 0
+    100%
+      visibility visible
+      opacity 1
+
+  @keyframes fadeOut
+    0%
+      visibility visible
+      opacity 1
+    99%
+      visibility visible
+      opacity 0
+    100%
+      visibility hidden
+      opacity 0
+
+  @keyframes scaleIn
+    0%
+      transform scale(0.9) translateY(-50%)
+    100%
+      transform scale(1) translateY(-50%)
+
+  .userLoggedIn
+    .buttons, form
+        display none

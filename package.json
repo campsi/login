@@ -1,0 +1,41 @@
+{
+  "name": "campsi-login",
+  "version": "1.0.0",
+  "description": " HTML Widget for Campsi/API login with themable style",
+  "main": "dist/campsi.login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/campsi/login.git"
+  },
+  "author": "Romain Bessuges <romain@agilitation.fr>",
+  "license": "MIT",
+  "keywords": [
+    "jquery-plugin",
+    "campsi"
+  ],
+  "bugs": {
+    "url": "https://github.com/campsi/login/issues"
+  },
+  "homepage": "https://github.com/campsi/login#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-image": "^2.7.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-print": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.11",
+    "inquirer": "^1.2.3",
+    "jquery": "^3.1.1",
+    "parse-query": "0.0.13",
+    "pump": "^1.0.1"
+  }
+}

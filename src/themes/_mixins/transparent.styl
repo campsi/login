@@ -1,0 +1,64 @@
+@import "modal"
+@import "bigButtons"
+
+transparentModal($themeColor, $backgroundColor, $textColor)
+  $overlay = radial-gradient(rgba($themeColor, 1), 30%, rgba($themeColor, 0.1))
+  $padding = 10px;
+  modal($overlay, rgba($backgroundColor, .5), $textColor)
+  bigButtons($padding)
+
+  .campsi-login
+    box-shadow 0 10px 30px rgba($backgroundColor, 0.1)
+    border 1px solid rgba($backgroundColor, .2)
+    border-radius 6px
+
+    .logo
+      border-radius 6px 6px 0 0
+      border-bottom 1px solid  rgba($backgroundColor, .2)
+
+    .buttons
+      background rgba(lighten(desaturate($themeColor, 60%), 20%), .6)
+
+    a.auth
+      font-weight 200
+    h1
+      font-weight 400
+      text-shadow 0 1px 2px rgba($backgroundColor, .4)
+      border-bottom 1px solid rgba($backgroundColor, .2)
+      border-radius 6px 6px 0 0
+
+    h2
+      font-weight 200
+
+    input
+      background #FFF
+      border-top 1px solid #EEE
+      border-bottom 1px solid #EEE
+      &:focus, &:hover
+        outline none
+
+    .buttons a
+      background rgba(white, 0)
+      &:before
+        transition filter .2s ease-out
+      &:focus, &:hover
+        &:before
+          filter: drop-shadow(0 3px 3px rgba($backgroundColor, .4));
+
+    .links
+      padding 4px
+      position absolute
+      width 100%
+      a
+        border-radius 100px
+        display inline-block
+        font-size 12px
+        padding 6px
+        text-decoration none
+        color $textColor
+        text-shadow 0 1px 1px rgba($backgroundColor, 0.8)
+        &:hover
+          background rgba($backgroundColor, 0.5)
+
+    .close
+      filter: drop-shadow(0 1px 1px rgba($backgroundColor, .3));

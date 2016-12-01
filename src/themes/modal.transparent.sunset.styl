@@ -1,0 +1,7 @@
+@import "./_mixins"
+
+$theme = #dd552d
+$bg = darken($theme, 60);
+$textColor = dark($bg) ? lighten($theme, 80) : darken($theme, 80);
+
+transparentModal($theme, $bg, $textColor)
