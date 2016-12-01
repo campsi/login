@@ -1,5 +1,5 @@
 # campsi/login
-Client-side widget that implements [**campsi**/api](https://github.com/campsi/api) authentification and registration.
+Client-side widget that implements [**campsi**/api](https://github.com/campsi/api) [authentification](https://github.com/campsi/api#authentification--authorization) and registration.
 
 ## Features
 - [x] User / Password login flow 
