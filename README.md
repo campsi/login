@@ -11,12 +11,11 @@ Client-side widget that implements [**campsi**/api](https://github.com/campsi/ap
 - [ ] Responsive
 
 ## Demo themes
-### `Modal.Transparent.Sunset`
-![](docs/images/modal.transparent.sunset.jpg?raw=true)
-### `Modal.Flat.Carmin`
-![](docs/images/modal.flat.carmin.jpg?raw=true)
-### `Modal.Transparent.Neonblue`
-![](docs/images/modal.transparent.neonblue.jpg?raw=true)
+
+|    |      |      |
+|----| ---- | ---- |
+`Modal.Transparent.Sunset` | `Modal.Flat.Carmin` | `Modal.Flat.Neonblue` |
+![](docs/images/modal.transparent.sunset.jpg?raw=true) | ![](docs/images/modal.flat.carmin.jpg?raw=true) | ![](docs/images/modal.transparent.neonblue.jpg?raw=true) |
 
 ## Installation
 #### Pre-requisites
