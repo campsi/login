@@ -8,7 +8,7 @@ Client-side widget that implements [**campsi**/api](https://github.com/campsi/ap
 - [x] Follows jQuery plugins conventions
   - [x] Named methods
   - [x] Minimal `$.fn` footprint
-- [ ] Responsive
+- [x] Responsive
 
 ## Demo themes
 

@@ -8,31 +8,8 @@
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
-.campsi-login-wrapper p,
-.campsi-login-wrapper h1,
-.campsi-login-wrapper h2,
-.campsi-login-wrapper h3,
-.campsi-login-wrapper div,
-.campsi-login-wrapper input,
-.campsi-login-wrapper select {
-  box-sizing: border-box;
-}
-.campsi-login-wrapper p,
-.campsi-login-wrapper h1,
-.campsi-login-wrapper h2,
-.campsi-login-wrapper h3 {
-  margin: 0;
-  padding: 0;
-}
-.campsi-login-wrapper {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-transform: translate3D(0, 0, 0);
-          transform: translate3D(0, 0, 0);
-}
-.campsi-login-wrapper .campsi-login {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+.campsi-login-wrapper .campsi-login .buttons:empty {
+  display: none;
 }
 .campsi-login-wrapper p,
 .campsi-login-wrapper h1,
@@ -60,6 +37,9 @@
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
+.campsi-login-wrapper .campsi-login .buttons:empty {
+  display: none;
+}
 .campsi-login-wrapper p,
 .campsi-login-wrapper h1,
 .campsi-login-wrapper h2,
@@ -85,6 +65,38 @@
 .campsi-login-wrapper .campsi-login {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
+}
+.campsi-login-wrapper .campsi-login .buttons:empty {
+  display: none;
+}
+.campsi-login-wrapper p,
+.campsi-login-wrapper h1,
+.campsi-login-wrapper h2,
+.campsi-login-wrapper h3,
+.campsi-login-wrapper div,
+.campsi-login-wrapper input,
+.campsi-login-wrapper select {
+  box-sizing: border-box;
+}
+.campsi-login-wrapper p,
+.campsi-login-wrapper h1,
+.campsi-login-wrapper h2,
+.campsi-login-wrapper h3 {
+  margin: 0;
+  padding: 0;
+}
+.campsi-login-wrapper {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translate3D(0, 0, 0);
+          transform: translate3D(0, 0, 0);
+}
+.campsi-login-wrapper .campsi-login {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.campsi-login-wrapper .campsi-login .buttons:empty {
+  display: none;
 }
 .campsi-login-wrapper p,
 .campsi-login-wrapper h1,
@@ -126,6 +138,9 @@
 }
 .campsi-login .logo img {
   max-height: 100px;
+}
+.campsi-login .logo:empty {
+  display: none;
 }
 .campsi-login a {
   color: #00112e;
@@ -227,6 +242,40 @@
 .userLoggedIn .buttons,
 .userLoggedIn form {
   display: none;
+}
+@media screen and (max-width: 600px) {
+  .campsi-login {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    margin-top: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  .campsi-login .close {
+    top: 10px !important;
+    right: 10px !important;
+  }
+}
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .campsi-login {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    margin-top: 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  .campsi-login .close {
+    top: 10px !important;
+    right: 10px !important;
+  }
 }
 @-webkit-keyframes fadeIn {
   0% {
@@ -342,6 +391,12 @@
 }
 .campsi-login .auth.twitter:before {
   background-image: url("_assets/provider-icons-round/Twitter.png");
+}
+@media screen and (max-width: 600px) {
+  .campsi-login .auth {
+    height: 40px;
+    width: 40px;
+  }
 }
 .campsi-login {
   box-shadow: 0 10px 30px rgba(255,255,255,0.1);

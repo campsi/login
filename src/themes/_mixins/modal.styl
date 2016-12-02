@@ -1,5 +1,19 @@
 @import "reset"
 
+fullscreen()
+  .campsi-login
+    display block
+    width 100%
+    min-height 100%
+    margin-top 0
+    position absolute
+    top 50%
+    left 0
+    transform translateY(0)
+    .close
+      top 10px !important
+      right 10px !important
+
 modal($overlay, $background, $textColor)
   .campsi-login-wrapper
     text-align center
@@ -22,6 +36,8 @@ modal($overlay, $background, $textColor)
       padding 20px
       img
         max-height 100px
+      &:empty
+        display none
 
     a
       color $textColor
@@ -131,3 +147,11 @@ modal($overlay, $background, $textColor)
   .userLoggedIn
     .buttons, form
         display none
+
+
+
+  @media screen and (max-width: 600px)
+    fullscreen()
+
+  @media screen and (orientation: landscape) and (max-height: 500px)
+    fullscreen()
