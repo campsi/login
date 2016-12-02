@@ -1,6 +1,6 @@
 {
   "name": "campsi-login",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": " HTML Widget for Campsi/API login with themable style",
   "main": "src/index.js",
   "scripts": {
