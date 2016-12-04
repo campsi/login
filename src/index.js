@@ -152,11 +152,11 @@
 
     function getQueryStringParam(paramName) {
         var qs = window.location.search,
-            paramIndexInQs = qs.indexOf(paramName + '=') + paramName.length + 1,
+            paramIndexInQs = qs.indexOf(paramName + '='),
             ampIndexInQs = qs.indexOf('&', paramIndexInQs);
 
-        console.info('getQueryStringParam', paramName, paramIndexInQs)
         if (paramIndexInQs > -1) {
+            paramIndexInQs +=  paramName.length + 1;
             return decodeURIComponent(qs.substring(paramIndexInQs, (ampIndexInQs === -1) ? qs.length : ampIndexInQs));
         }
     }
