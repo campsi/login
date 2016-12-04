@@ -1,62 +1,5 @@
-/**
- * @name CampsiLoginOptions
- * @type Object
- * @property {String} baseUrl
- * @property {Object} [translations]
- * @property {String} [token]
- * @property {String} [invitation]
- */
-
-/**
- * @name CampsiProvider
- * @type {Object}
- * @property {String} name
- * @property {Array} [scope]
- * @property {Object} [colors]
- */
-
-/**
- * @name CampsiLocalProvider
- * @extends {CampsiProvider}
- * @type {Object}
- */
-
-/**
- * @name CampsiLoginProviders
- * @type {Object<name,CampsiProvider>}
- * @property {CampsiLocalProvider} local
- */
-
-/**
- *
- * @param {CampsiLoginOptions} options
- * @param {Object} providers
- * @returns {jQuery} the campsi/login markup
- */
-/**
- * Usage
- * ```javascript
- $('#login').CampsiLogin({
-    baseUrl: 'http://localhost:3000/auth',
-    success: function (token) {
-
-    },
-    error: function (error) {
-
-    },
-    ready: function () {
-
-    },
-    translations: {}
-});
- */
-
-
 (function ($) {
-    /**
-     * @param {CampsiLoginOptions} options
-     * @returns {{signin: string, signup: string, resetPassword: string}}
-     */
+
     function getFormIds(options) {
         var t = options.translations;
         return {
@@ -68,14 +11,13 @@
     }
 
     function createLocalForms(options, localProvider) {
-        console.info('createLocalForms', options);
         var t = options.translations;
         var ids = getFormIds(options);
 
-        function createForm(id) {
+        function createForm(id, className) {
             return $('<form>').attr({
-                id: id,
-                class: 'local',
+                id: id.substr(1),
+                class: 'local ' + className,
                 action: options.baseUrl + '/' + localProvider.name,
                 method: 'POST'
             })
@@ -88,7 +30,7 @@
         }
 
         function createSigninForm() {
-            return createForm('campsi-login-signin').append([
+            return createForm(ids.signin, 'signin').append([
                 $('<h2>').text(t.signinTitle),
                 $('<input>').attr({type: 'text', name: 'username', placeholder: t.usernamePH}),
                 $('<input>').attr({type: 'password', name: 'password', placeholder: t.passwordPH}),
@@ -102,9 +44,8 @@
             ]);
         }
 
-
         function createSignUpForm() {
-            return createForm('campsi-login-signup').append([
+            return createForm(ids.signup, 'signup').append([
                 $('<h2>').text(t.signupTitle),
                 $('<input>').attr({type: 'text', name: 'displayName', placeholder: t.displayNamePH}),
                 $('<input>').attr({type: 'email', name: 'email', placeholder: t.emailPH}),
@@ -116,11 +57,10 @@
                 $('<div class="submit">').append($('<button>').text(t.signupSubmitText)),
                 createFormLinks([{href: ids.signin, text: t.signinLink}])
             ]);
-
         }
 
         function createResetPasswordForm() {
-            return createForm('campsi-login-reset-password').append([
+            return createForm(ids.resetPassword, 'signup').append([
                 $('<h2>').text(t.resetPasswordTitle),
                 $('<input>').attr({type: 'email', name: 'email', placeholder: t.emailPH}),
                 $('<input>').attr({type: 'hidden', name: 'action', value: 'reset-password'}),
@@ -148,31 +88,33 @@
         return $button;
     }
 
-    function createMarkup(options) {
+    function createMarkup(settings) {
         var $login = $('<div />')
             .addClass('campsi-login')
+            .hide()
             .append('<div class="fx">')
             .append($('<a class="close"></a>'))
             .append('<div class="logo">')
-            .append($('<h1>').html(options.translations.title))
+            .append($('<h1>').html(settings.translations.title))
             .append('<div class="user"></div>')
             .append($('<div class="buttons">'));
 
-        if (options.logo) {
+        if (settings.logo) {
             $login.find('.logo')
-                .append($('<img>').attr('src', options.logo))
-                .css(options.logoStyle);
+                .append($('<img>').attr('src', settings.logo))
+                .css(settings.logoStyle);
         }
 
-        $(options.providers).each(function () {
+        $(settings.providers).each(function () {
             if (this.name === 'local') {
-                $login.append(createLocalForms(options, this));
+                $login.append(createLocalForms(settings, this));
             } else {
-                $login.find('.buttons').append(createButton(options, this))
+                $login.find('.buttons').append(createButton(settings, this))
             }
         });
         return $login
     }
+
 
     function getProviders(options, onSuccess, onError) {
         onError = onError || function (response) {
@@ -203,7 +145,7 @@
             url: options.baseUrl + '/me',
             beforeSend: addBearerToken(options),
             success: onSuccess,
-            onError: onError,
+            error: onError,
             dataType: 'json'
         });
     }
@@ -213,6 +155,7 @@
             paramIndexInQs = qs.indexOf(paramName + '=') + paramName.length + 1,
             ampIndexInQs = qs.indexOf('&', paramIndexInQs);
 
+        console.info('getQueryStringParam', paramName, paramIndexInQs)
         if (paramIndexInQs > -1) {
             return decodeURIComponent(qs.substring(paramIndexInQs, (ampIndexInQs === -1) ? qs.length : ampIndexInQs));
         }
@@ -252,6 +195,7 @@
 
     function execute($this, command) {
         var settings = $this.data('campsi-login-settings');
+
         if (!settings) {
             console.error('campsi/login has not been instanciated. Please call $el.CampsiLogin({options}) first.');
             return;
@@ -273,6 +217,8 @@
             default:
                 console.warn('campsi/login unknown command', command);
         }
+
+        return $this;
     }
 
     function logout($this, settings) {
@@ -284,6 +230,7 @@
             window.localStorage.removeItem(settings.localStorageKey);
             $this.find('.user').empty();
             $this.removeClass('userLoggedIn');
+            updateFormsState($this, settings);
         });
     }
 
@@ -291,36 +238,27 @@
         $this.removeClass('visible').addClass('closed');
     }
 
-    function showLogin($this, settings, attempts) {
-        attempts = attempts || 0;
-        if (attempts > 2) {
-            console.error('campsi/login could not find .campsi-login');
-            return false;
-        }
-        if ($this.find('.campsi-login').length < 1) {
-            init($this, settings, function () {
-                showLogin($this, settings, attempts + 1);
-            });
-        } else {
-            $this.addClass('visible').removeClass('closed');
-        }
-    }
-
-    function init($this, settings, cb) {
-        $this.empty()
-            .addClass('campsi-login-wrapper')
-            .append(createMarkup(settings));
-
-        $this.trigger('ready');
-        $(window).trigger('hashchange');
-        cb();
+    function showLogin($this) {
+        $this.addClass('visible').removeClass('closed');
     }
 
     function getSettings(options) {
-        if (options.translations) {
-            options.translations = $.extend({}, $.fn.CampsiLogin.defaults.translations, options.translations);
+        var settings;
+
+        if (typeof options !== 'object') {
+            return;
         }
-        var settings = $.extend({}, $.fn.CampsiLogin.defaults, options);
+
+        if (options.translations) {
+            options.translations = $.extend({},
+                $.fn.CampsiLogin.defaults.translations,
+                options.translations
+            );
+        }
+        settings = $.extend({}, $.fn.CampsiLogin.defaults, options);
+        settings.token = parseToken(settings);
+        settings.invitation = settings.invitation || getQueryStringParam('invitation');
+        // settings.state =
         if (!settings.baseUrl) {
             throw new Error('campsi/login missing baseUrl option');
         }
@@ -343,59 +281,68 @@
             .append($logout);
     }
 
-    /**
-     *
-     * @param {CampsiLoginOptions|String} options
-     * @constructor
-     */
-    $.fn.CampsiLogin = function (options) {
-        var $this = this, settings, t;
+    function addEventListeners($this, settings) {
+        $this.on('click', '.close', function () {
+            $this.CampsiLogin('hide');
+        });
 
+        $(window).on('hashchange', function () {
+            updateFormsState($this, settings);
+        });
+    }
+
+    function updateFormsState($this, settings) {
+        var ids = getFormIds(settings);
+        var stateInHash = (location.hash.indexOf('#' + settings.translations.idPrefix) === 0) ? location.hash : null;
+        var activeState = stateInHash || ids[settings.state] || ids.signin;
+        $this.find('form').hide();
+        $this.find(activeState).show();
+    }
+
+    $.fn.CampsiLogin = function (options) {
+        var $this = this;
+        var settings = getSettings(options);
         if (typeof options === 'string') {
             return execute($this, options);
         }
 
-        settings = getSettings(options);
-        settings.invitation = settings.invitation || getQueryStringParam('invitation');
-        t = settings.translations;
+        if ($this.hasClass('campsi-login-wrapper')) {
+            console.info('campsi/login has already been inited');
+            return;
+        }
 
-        $(window).on('hashchange', function () {
-            if (!$this.hasClass('userLoggedIn')) {
-                var activeForm = (location.hash.indexOf('#' + t.idPrefix) === 0)
-                    ? location.hash
-                    : getFormIds(settings).signin;
-
-                $this.find('form').hide();
-                $this.find(activeForm).show();
-            }
-        });
-
-        settings.token = parseToken(settings);
-        $this.data('campsi-login-settings', settings);
 
         getProviders(settings, function (providers) {
+
             settings.providers = providers;
+
+            $this.append(createMarkup(settings))
+                .addClass('campsi-login-wrapper')
+                .data('campsi-login-settings', settings);
+
+            addEventListeners($this, settings);
+
             if (settings.token) {
                 authUser(settings, function (userInfo) {
                     window.localStorage.setItem(settings.localStorageKey, JSON.stringify(userInfo.token));
-                    $this.data('campsi-login-user', userInfo);
-                    $this.addClass('userLoggedIn');
-                    $this.trigger('login', userInfo);
-                    $this.CampsiLogin('displayUser');
+                    $this.data('campsi-login-user', userInfo)
+                        .CampsiLogin('displayUser')
+                        .addClass('userLoggedIn')
+                        .trigger('login', userInfo);
+                    end();
                 }, function () {
                     $this.trigger('loginError');
-                    $this.CampsiLogin('show');
+                    end();
                 });
-            }
-
-            if (settings.autoShow) {
-                $this.CampsiLogin('show');
+            } else {
+                end();
             }
         });
 
-        $this.on('click', '.close', function () {
-            $this.CampsiLogin('hide');
-        });
+        function end() {
+            $this.find('.campsi-login').show();
+            $(window).trigger('hashchange');
+        }
 
         return $this;
     };

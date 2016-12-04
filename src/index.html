@@ -84,7 +84,8 @@
         passwordVerifyPH: 'Vérification du mot de passe'
     };
     var $login = $('#login').CampsiLogin({
-        baseUrl: 'http://localhost:3000/auth'
+        baseUrl: 'http://localhost:3000/auth',
+        state: 'signup'
     }).on('login', function (event, user) {
         console.info('user logged in', user);
     });

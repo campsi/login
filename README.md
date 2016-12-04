@@ -58,6 +58,17 @@ $('#login').CampsiLogin({
 | `$div.CampsiLogin('hide')`| Display the login widget by adding the class `closed` and removing the class `visible` to the container `div`|
 | `$div.CampsiLogin('logout')`|  Destroy the token in the browser's `localStorage` |
 
+### Constructor options
+
+| Name            | Type         |  Required |       Description                                                            |
+|---------------- | ------------ | --------- | ----------------------------------------------------------------- |
+| `baseUrl`       |  `string`    | **Yes**   | The URL of your **campsi**/api setup                            |
+| `token`         | `string`     | No        | force the authentification token |
+| `invitation`    | `string`     | No        | force the invitation token   |
+| `state`         | `string`     | No        | which form to display by default (one of "signup", "signin", "reset")|
+
+The parameters `token` and `invitation` have precedence over the query string and the local storage.
+
 ### Events
 
 | Name            |          Description                                                            |
