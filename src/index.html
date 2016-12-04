@@ -17,12 +17,15 @@
         body[data-theme="modal.transparent.neonblue"] {
             background: url(https://campsi.imgix.net/56261291c0e9425a0b9404d8-BJClzTpfe.jpg?fit=max&h=1600);
         }
+
         body[data-theme="modal.transparent.sunset"] {
             background: url(https://campsi.imgix.net/56261291c0e9425a0b9404d8-rJbn7BeGg.jpeg?fit=max&h=1600);
         }
+
         body[data-theme="modal.flat.lakers"] {
             background: url(https://campsi.imgix.net/56261291c0e9425a0b9404d8-Syt2Mp6fg.jpeg?fit=max&h=1600);
         }
+
         body[data-theme="modal.flat.carmin"] {
             background: url(https://campsi.imgix.net/56261291c0e9425a0b9404d8-rJhZzTaGe.jpg?fit=max&h=1600);
         }
@@ -53,7 +56,6 @@
 <div id="login" class="close-outside"></div>
 <div id="user"></div>
 <script src="../node_modules/jquery/dist/jquery.js"></script>
-<script src="../node_modules/parse-query/parse_query.js"></script>
 <script src="./index.js"></script>
 <script type="text/javascript">
     var translations = {
@@ -81,15 +83,8 @@
         passwordPH: 'Mot de passe',
         passwordVerifyPH: 'Vérification du mot de passe'
     };
-    var parameters = parseQuery();
-    var $login = $('#login');
-    $login.CampsiLogin({
-        baseUrl: 'http://localhost:3000/auth',
-        invitation: parameters.invitation,
-        token: parameters.token,
-//        logo: "https://campsi.imgix.net/56261291c0e9425a0b9404d8-H14vqrpMl.png?fit=max&h=150",
-        logoStyle: {},
-//        translations: translations
+    var $login = $('#login').CampsiLogin({
+        baseUrl: 'http://localhost:3000/auth'
     }).on('login', function (event, user) {
         console.info('user logged in', user);
     });

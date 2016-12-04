@@ -68,6 +68,7 @@
     }
 
     function createLocalForms(options, localProvider) {
+        console.info('createLocalForms', options);
         var t = options.translations;
         var ids = getFormIds(options);
 
@@ -92,6 +93,7 @@
                 $('<input>').attr({type: 'text', name: 'username', placeholder: t.usernamePH}),
                 $('<input>').attr({type: 'password', name: 'password', placeholder: t.passwordPH}),
                 $('<input>').attr({type: 'hidden', name: 'action', value: 'signin'}),
+                $('<input>').attr({type: 'hidden', name: 'invitation', value: options.invitation}),
                 $('<div class="submit">').append($('<button>').text(t.signinSubmitText)),
                 createFormLinks([
                     {href: ids.resetPassword, text: t.resetPasswordLink},
@@ -110,6 +112,7 @@
                 $('<input>').attr({type: 'password', name: 'password', placeholder: t.passwordPH}),
                 $('<input>').attr({type: 'password', name: 'password_verify', placeholder: t.passwordVerifyPH}),
                 $('<input>').attr({type: 'hidden', name: 'action', value: 'signup'}),
+                $('<input>').attr({type: 'hidden', name: 'invitation', value: options.invitation}),
                 $('<div class="submit">').append($('<button>').text(t.signupSubmitText)),
                 createFormLinks([{href: ids.signin, text: t.signinLink}])
             ]);
@@ -133,11 +136,11 @@
         ];
     }
 
-    function createButton(options, provider) {
+    function createButton(settings, provider) {
         var $button = $('<a class="auth"></a>');
         var url = 'http://localhost:3000/auth/' + provider.name;
-        if (options.invitation) {
-            url += '?invitation=' + invitation;
+        if (settings.invitation) {
+            url += '?invitation=' + encodeURIComponent(settings.invitation);
         }
         $button.addClass(provider.name);
         $button.attr({href: url});
@@ -205,17 +208,27 @@
         });
     }
 
+    function getQueryStringParam(paramName) {
+        var qs = window.location.search,
+            paramIndexInQs = qs.indexOf(paramName + '=') + paramName.length + 1,
+            ampIndexInQs = qs.indexOf('&', paramIndexInQs);
+
+        if (paramIndexInQs > -1) {
+            return decodeURIComponent(qs.substring(paramIndexInQs, (ampIndexInQs === -1) ? qs.length : ampIndexInQs));
+        }
+    }
+
     function parseToken(options) {
         var decoded,
             stored,
-            token = options.token,
+            token = options.token || getQueryStringParam('token'),
             type = typeof token;
 
         if (type === 'object') {
             return options.token;
         }
 
-        if (type === 'string') {
+        if (token && type === 'string') {
             try {
                 decoded = JSON.parse(atob(token));
             } catch (err) {
@@ -225,6 +238,7 @@
             }
             return decoded;
         }
+
 
         stored = window.localStorage.getItem(options.localStorageKey);
         try {
@@ -342,6 +356,7 @@
         }
 
         settings = getSettings(options);
+        settings.invitation = settings.invitation || getQueryStringParam('invitation');
         t = settings.translations;
 
         $(window).on('hashchange', function () {

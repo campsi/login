@@ -39,20 +39,15 @@ Like most jQuery plugins, **campsi**/login ships with a minified version. Just u
 
 **camspi**/api returns the auth token in the query string, so we have to parse it to obtain the value. The **campsi**/login plugin can also use an invitation token and display the issuer and the message.
 ```javascript
-// let's parse the query string
-var parameters = parseQuery();
 // here's the URL to the campsi/api server
 var apiUrl = 'http://api.mysuperwebsite.com/';
 
 $('#login').CampsiLogin({
-    baseUrl: apiUrl + '/auth',
-    invitation: parameters.invitation,
-    token: parameters.token
+    baseUrl: apiUrl + '/auth'
 }).on('login', function(event, user){
     console.info('user logged in', user);
 });
 ```
-In this example we use the parseQuery exposed by the npm package `parse-query` listed in the dev-dependencies
 ## Documentation
 ### Methods
 
