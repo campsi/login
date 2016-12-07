@@ -18,7 +18,7 @@
             return $('<form>').attr({
                 id: id.substr(1),
                 class: 'local ' + className,
-                action: options.baseUrl + '/' + localProvider.name,
+                action: options.baseUrl + '/' + localProvider.name + '/' + className,
                 method: 'POST'
             })
         }
@@ -69,11 +69,11 @@
             ]);
         }
 
-        return [
+        return $('<div class="forms">').append([
             createSigninForm(),
             createResetPasswordForm(),
             createSignUpForm()
-        ];
+        ]);
     }
 
     function createButton(settings, provider) {
@@ -156,7 +156,7 @@
             ampIndexInQs = qs.indexOf('&', paramIndexInQs);
 
         if (paramIndexInQs > -1) {
-            paramIndexInQs +=  paramName.length + 1;
+            paramIndexInQs += paramName.length + 1;
             return decodeURIComponent(qs.substring(paramIndexInQs, (ampIndexInQs === -1) ? qs.length : ampIndexInQs));
         }
     }
@@ -230,6 +230,7 @@
             window.localStorage.removeItem(settings.localStorageKey);
             $this.find('.user').empty();
             $this.removeClass('userLoggedIn');
+            $this.find('.forms').show();
             updateFormsState($this, settings);
         });
     }
@@ -328,7 +329,8 @@
                     $this.data('campsi-login-user', userInfo)
                         .CampsiLogin('displayUser')
                         .addClass('userLoggedIn')
-                        .trigger('login', userInfo);
+                        .trigger('login', userInfo)
+                        .find('.forms').hide()
                     end();
                 }, function () {
                     $this.trigger('loginError');

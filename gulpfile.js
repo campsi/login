@@ -48,7 +48,6 @@ gulp.task('watch', function () {
     gulp.watch('src/themes/**/*.styl', ['stylus']);
 });
 
-gulp.task('default', ['stylus', 'js', 'watch']);
-
-
+gulp.task('dist', ['stylus', 'js']);
+gulp.task('default', ['dist', 'watch']);
 
