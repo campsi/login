@@ -14,11 +14,11 @@
         var t = options.translations;
         var ids = getFormIds(options);
 
-        function createForm(id, className) {
+        function createForm(id, action) {
             return $('<form>').attr({
                 id: id.substr(1),
-                class: 'local ' + className,
-                action: options.baseUrl + '/' + localProvider.name + '/' + className,
+                class: 'local ' + action,
+                action: options.baseUrl + '/' + localProvider.name + '/' + action,
                 method: 'POST'
             })
         }
@@ -330,7 +330,7 @@
                         .CampsiLogin('displayUser')
                         .addClass('userLoggedIn')
                         .trigger('login', userInfo)
-                        .find('.forms').hide()
+                        .find('.forms').hide();
                     end();
                 }, function () {
                     $this.trigger('loginError');
