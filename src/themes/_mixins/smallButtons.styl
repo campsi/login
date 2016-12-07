@@ -1,0 +1,35 @@
+smallButtons($space = 5px)
+  .campsi-login
+    .buttons
+      a
+        display inline-block
+        margin $space
+        text-decoration none
+        width 30px
+        height 30px
+        overflow hidden
+        color transparent
+        &:focus, &:hover
+          outline none
+        &:first-child
+          margin-left 0
+        &:last-child
+          margin-right 0
+
+    .auth
+      display inline-block
+      &:before
+        display inline-block
+        height 30px
+        width 30px
+        background-size contain
+        content: ''
+
+      &.facebook:before
+        background-image url(_assets/provider-icons-round/Facebook.png)
+      &.google:before
+        background-image url(_assets/provider-icons-round/Google%20Plus.png)
+      &.github:before
+        background-image url(_assets/provider-icons-round/Github.png)
+      &.twitter:before
+        background-image url(_assets/provider-icons-round/Twitter.png)

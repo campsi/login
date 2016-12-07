@@ -14,11 +14,11 @@
         var t = options.translations;
         var ids = getFormIds(options);
 
-        function createForm(id, className) {
+        function createForm(id, action) {
             return $('<form>').attr({
                 id: id.substr(1),
-                class: 'local ' + className,
-                action: options.baseUrl + '/' + localProvider.name + '/' + className,
+                class: 'local ' + action,
+                action: options.baseUrl + '/' + localProvider.name + '/' + action,
                 method: 'POST'
             })
         }
@@ -230,7 +230,7 @@
             window.localStorage.removeItem(settings.localStorageKey);
             $this.find('.user').empty();
             $this.removeClass('userLoggedIn');
-            $this.find('.forms').show();
+            $this.find('.forms, .buttons').show();
             updateFormsState($this, settings);
         });
     }
@@ -277,8 +277,9 @@
             $this.CampsiLogin('logout');
         });
         $this.find('.user').empty()
+        $this.find('.user').empty()
             .append($('<div class="displayName">').text(user.displayName))
-            .append($('<div class="pictureWrapper">').append($('<img>').attr('src', user.pictureUrl)))
+            .append($('<div class="pictureWrapper">').append($('<img>').attr('src', user.picture)))
             .append($logout);
     }
 
@@ -330,7 +331,7 @@
                         .CampsiLogin('displayUser')
                         .addClass('userLoggedIn')
                         .trigger('login', userInfo)
-                        .find('.forms').hide()
+                        .find('.forms, .buttons').hide();
                     end();
                 }, function () {
                     $this.trigger('loginError');
@@ -359,7 +360,7 @@
 
             signinId: 'signin',
             signinSubmitText: 'Sign in',
-            signinLink: 'I remember!',
+            signinLink: 'I have an account!',
             signinTitle: 'Sign in',
 
             signupId: 'signup',

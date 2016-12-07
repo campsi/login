@@ -12,6 +12,18 @@
             background-position-x: 50%;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             font-size: 15px;
+            padding: 0;
+            margin: 0;
+        }
+
+        body[data-theme="default"] #login {
+            width: 500px;
+            background: rebeccapurple;
+            color : white;
+        }
+
+        body[data-theme="default"] #login a {
+            color : white;
         }
 
         body[data-theme="modal.transparent.neonblue"] {
@@ -46,6 +58,7 @@
     <button id="logout">Logout</button>
     <select id="themeChooser">
         <optgroup label="Modal">
+            <option value="default">Default</option>
             <option value="modal.transparent.neonblue">Modal Transparent NeonBlue</option>
             <option value="modal.transparent.sunset">Modal Transparent Sunset</option>
             <option value="modal.flat.carmin">Modal Flat Carmin</option>

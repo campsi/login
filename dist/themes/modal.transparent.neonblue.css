@@ -466,3 +466,13 @@
   -webkit-filter: drop-shadow(0 1px 1px rgba(255,255,255,0.3));
           filter: drop-shadow(0 1px 1px rgba(255,255,255,0.3));
 }
+.campsi-login .pictureWrapper {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  overflow: hidden;
+}
+.campsi-login .pictureWrapper img {
+  width: 100%;
+}
